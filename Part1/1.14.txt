@@ -1,0 +1,33 @@
+
+So there were chenges in cide related to ruby version discrepancies - i changed to 2.6.6 ref in gemfile(s)
+
+There is also issue with secret key so I found out a workaround using SECRET_KEY_BASE=`bin/rake secret` to override key generation
+
+
+Dockerfile
+
+
+FROM ruby:2.6
+
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash && apt install -y nodejs
+
+WORKDIR /usr/src/app
+
+COPY Gemfile Gemfile.lock ./
+RUN bundle install && bundle update --ruby
+
+
+COPY . .
+
+RUN SECRET_KEY_BASE=`bin/rake secret`  rails db:migrate RAILS_ENV=production
+
+RUN bundle exec rake assets:precompile
+ENV RAILS_LOG_TO_STDOUT=true
+
+
+CMD SECRET_KEY_BASE=`bin/rake secret` rails s -e production
+
+to run with 
+sudo docker run -p 3000:3000 ruby_app
+
+

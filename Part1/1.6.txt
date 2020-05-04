@@ -1,0 +1,12 @@
+Dockerfile
+
+FROM devopsdockeruh/overwrite_cmd_exercise
+
+
+WORKDIR /usr/app
+
+CMD ["-c"]
+
+command to run docker
+
+sudo docker run docker-clock

@@ -1,0 +1,15 @@
+run command
+
+sudo docker run -v $(pwd)/logs.txt:/appdir/logs.txt -p 8000:8000 backend-app
+
+dockerfile
+
+FROM curler
+
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash && apt install -y nodejs
+
+COPY . .
+
+RUN npm install
+
+CMD ["npm","start"]

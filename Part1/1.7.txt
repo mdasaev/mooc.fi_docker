@@ -1,0 +1,16 @@
+Dockerfile
+
+FROM ubuntu
+
+WORKDIR /appdir
+
+COPY ./conn.sh .
+
+RUN chmod +x ./conn.sh
+RUN apt-get update&&apt-get install -y curl
+
+CMD ["./conn.sh"]
+
+Command to run docker
+
+sudo docker run -it curler

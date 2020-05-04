@@ -1,0 +1,40 @@
+be dockerfile
+
+FROM curler
+
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash && apt install -y nodejs
+
+COPY . .
+
+RUN npm install
+
+ENV FRONT_URL=http://localhost:5000
+
+CMD ["npm","start"]
+
+
+
+
+be start command
+
+sudo docker run -p 8000:8000 -v $(pwd)/logs.txt:/appdir/logs.txt backend-app
+
+
+fe dockerfile
+
+FROM curler
+
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash && apt install -y nodejs
+
+COPY . .
+
+RUN npm install
+
+ENV API_URL=http://localhost:8000
+
+CMD ["npm", "start"]
+
+
+fe start command
+
+sudo docker run -p 5000:5000 frontend-app

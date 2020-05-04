@@ -1,0 +1,11 @@
+FROM curler
+
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash && apt install -y nodejs
+
+COPY . . 
+
+RUN npm install
+
+CMD ["npm", "start"]
+
+
